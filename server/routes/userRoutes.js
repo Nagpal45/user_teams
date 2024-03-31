@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
     try {
-        const { domain, gender, available, search, page = 1, limit = 20 } = req.query;
+        const { domain, gender, available, search, page = 1} = req.query;
         const filters = {};
         if (domain) filters.domain = domain;
         if (gender) filters.gender = gender;
@@ -13,15 +13,19 @@ router.get('/', async (req, res) => {
             { first_name: { $regex: search, $options: 'i' } },
             { last_name: { $regex: search, $options: 'i' } }
         ];
+        const limit = 20;
 
         const users = await User.find(filters)
             .skip((page - 1) * limit)
             .limit(parseInt(limit));
 
+        const domains = await User.distinct('domain');
+        const genders = await User.distinct('gender');
+
         const totalCount = await User.countDocuments(filters);
         const totalPages = Math.ceil(totalCount / limit);
 
-        res.status(200).json({ users, totalPages });
+        res.status(200).json({ users, totalPages, domains, genders });
     } catch (error) {
         res.status(500).json({ error: 'Failed to fetch users' });
     }
@@ -81,13 +85,13 @@ router.put('/:id', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
     try {
-      const deletedUser = await User.findOneAndDelete({id: req.params.id});
-      if (!deletedUser) {
-        return res.status(404).json({ error: 'User not found' });
-      }
-      res.status(200).json({ message: 'User deleted successfully' });
+        const deletedUser = await User.findOneAndDelete({ id: req.params.id });
+        if (!deletedUser) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        res.status(200).json({ message: 'User deleted successfully' });
     } catch (error) {
-      res.status(500).json({ error: 'Failed to delete user' });
+        res.status(500).json({ error: 'Failed to delete user' });
     }
 });
 

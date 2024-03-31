@@ -1,0 +1,31 @@
+.pagination{
+    padding-top: 3vw;
+    padding-bottom: 3vw;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.page{
+    background: none;
+    border: 0.2vw solid #B5DEFF;
+    margin: 0.5vw;
+    border-radius: 0.6vw;
+    font-size: 0.9vw;
+    width: 2.5vw;
+    height: 2.5vw;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.page:hover{
+    background-color: #B5DEFF;
+}
+
+.active{
+    background-color: #B5DEFF;
+}

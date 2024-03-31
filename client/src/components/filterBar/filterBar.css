@@ -1,0 +1,8 @@
+.filterBar{
+    padding-top: 3vw;
+    padding-bottom: 3vw;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
