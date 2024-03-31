@@ -4,12 +4,15 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
     try {
-        const { domain, gender, availability, search, page = 1, limit = 20 } = req.query;
+        const { domain, gender, available, search, page = 1, limit = 20 } = req.query;
         const filters = {};
         if (domain) filters.domain = domain;
         if (gender) filters.gender = gender;
-        if (availability) filters.availability = availability;
-        if (search) filters.name = { $regex: search, $options: 'i' };
+        if (available) filters.available = available;
+        if (search) filters.$or = [
+            { first_name: { $regex: search, $options: 'i' } },
+            { last_name: { $regex: search, $options: 'i' } }
+        ];
 
         const users = await User.find(filters)
             .skip((page - 1) * limit)
@@ -26,15 +29,15 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     try {
-      const user = await User.findOne({id: req.params.id});
-      if (!user) {
-        return res.status(404).json({ error: 'User not found' });
-      }
-      res.status(200).json(user);
+        const user = await User.findOne({ id: req.params.id });
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        res.status(200).json(user);
     } catch (error) {
-      res.status(500).json({ error: 'Failed to fetch user' });
+        res.status(500).json({ error: 'Failed to fetch user' });
     }
-  });
+});
 
 
 router.post('/', async (req, res) => {
@@ -58,5 +61,34 @@ router.post('/', async (req, res) => {
         res.status(500).json(error);
     }
 })
+
+router.put('/:id', async (req, res) => {
+    try {
+        const { first_name, last_name, email, gender, avatar, domain, available } = req.body;
+        const updatedUser = await User.findOneAndUpdate(
+            { id: req.params.id },
+            { first_name, last_name, email, gender, avatar, domain, available },
+            { new: true }
+        );
+        if (!updatedUser) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        res.status(200).json(updatedUser);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to update user' });
+    }
+});
+
+router.delete('/:id', async (req, res) => {
+    try {
+      const deletedUser = await User.findOneAndDelete({id: req.params.id});
+      if (!deletedUser) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+      res.status(200).json({ message: 'User deleted successfully' });
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to delete user' });
+    }
+});
 
 module.exports = router;
