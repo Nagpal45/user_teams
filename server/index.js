@@ -1,10 +1,11 @@
 const express = require('express');
 const cors = require("cors");
-const userRoutes = require('./routes/userRoutes.js');
 const mongoose = require('mongoose');
 const { configDotenv } = require('dotenv');
-configDotenv();
+const userRoutes = require('./routes/userRoutes.js');
+const teamRoutes = require('./routes/teamRoutes.js');
 
+configDotenv();
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -14,7 +15,7 @@ mongoose.connect(process.env.MONGO).then(() => {
 })
 
 app.use('/api/users', userRoutes);
-
+app.use('/api/teams', teamRoutes);
 
 app.listen(5000, ()=>{
     console.log("Server started");
