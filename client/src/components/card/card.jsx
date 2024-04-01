@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import './card.css';
-import { Email, WcOutlined, Work } from '@mui/icons-material';
+import { Email, MoreHoriz, WcOutlined, Work } from '@mui/icons-material';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 
-export default function Card({ user, select, handleUserSelect, selectedUsers, setWarning }) {
+export default function Card({ user, select, handleUserSelect, selectedUsers, setWarning, getUsers }) {
     const [selected, setSelected] = useState();
+    const [showMenu, setShowMenu] = useState(false);
+
+    const history = useNavigate();
+
     useEffect(() => {
         setSelected(selectedUsers?.some((u) => u._id === user._id));
     }, [selectedUsers, user._id]);
@@ -23,6 +29,24 @@ export default function Card({ user, select, handleUserSelect, selectedUsers, se
                 setWarning('');
               }
         }
+    };
+
+    const handleDelete = async () => {
+        try {
+        const response = await axios.delete(`/api/users/${user.id}`);
+        await getUsers(); 
+        console.log(response);
+        } catch (error) {
+            console.error('Failed to delete user:', error);
+        }
+        setTimeout(()=>{
+            setShowMenu(false);
+        },100)
+    };
+
+    const handleEdit = () => {
+        history(`/users/${user.id}`);
+        setShowMenu(false);
     };
 
     return (
@@ -48,7 +72,15 @@ export default function Card({ user, select, handleUserSelect, selectedUsers, se
             </div>
             <img src={user.avatar} alt="" />
             <div className="bottom">
+                <MoreHoriz className='dots' onClick={() => setShowMenu(!showMenu)}/>
                 <h4>{user.first_name + " " + user.last_name}</h4>
+                {showMenu && (
+                <div className="menu">
+                    <button onClick={handleEdit}>Edit User</button>
+                    <div className='sepline'></div>
+                    <button onClick={handleDelete}>Delete User</button>
+                </div>
+            )}
             </div>
         </div>
     )

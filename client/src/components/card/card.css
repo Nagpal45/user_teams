@@ -8,7 +8,6 @@
     justify-content: center;
     position: relative;
     flex-direction: column;
-    overflow: hidden;
 }
 
 .card img{
@@ -38,6 +37,7 @@
     align-items: center;
     justify-content: center;
     flex-direction: row;
+    border-radius: 1.5vw 1.5vw 0 0;
 }
 
 .left{
@@ -93,6 +93,8 @@
     height: 50%;
     display: flex;align-items: center;
     justify-content: center;
+    position: relative;
+    border-radius: 0 0 1.5vw 1.5vw ;
 }
 
 .bottom h4{
@@ -110,4 +112,38 @@
 .notAvailable{
     border: #FCFFA6 solid 0.15vw;
     background-color: rgba(252, 255, 166,0.4);
+}
+
+.dots{
+    position: absolute;
+    top:0; right:0.5vw;
+    cursor: pointer;
+}
+
+.menu{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 1.5vw;
+    right:-2vw;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 1vw;
+    padding: 1vw;
+    border: 0.1vw solid rgb(174, 174, 174);
+    background: white;
+    z-index: 10;
+}
+
+.sepline{
+    width: 90%;
+    border-bottom: 0.1vw solid gray;
+    margin-top: 0.5vw;
+    margin-bottom: 0.5vw;
+}
+
+.menu button{
+    font-size: 0.8vw;
+    cursor: pointer;
+    border: none;
+    background: none;
 }

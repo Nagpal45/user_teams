@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './topBar.css';
 import { Link } from 'react-router-dom';
 
-export default function TopBar({ teamName, setSelect, setSelectedUsers, setShowForm, deleteTeam, teamId }) {
+export default function TopBar({ teamName, setSelect, setSelectedUsers, setShowForm, deleteTeam, teamId, handleAdd }) {
   const [isSelect, setIsSelect] = useState();
 
   const handleSelect = () => {
@@ -32,7 +32,10 @@ export default function TopBar({ teamName, setSelect, setSelectedUsers, setShowF
             <button onClick={handleForm}>Done</button>
           </div>
         ) : (
+          <div>
+          <button onClick={handleAdd}>Add User</button>
           <button onClick={handleSelect}>Create Team</button>
+          </div>
         )
       )}
     </div>
