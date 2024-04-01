@@ -3,7 +3,7 @@ import Card from '../card/card';
 import axios from 'axios';
 import './users.css';
 
-const Users = ({ filters, page }) => {
+const Users = ({ filters, page, select, onUserSelect, selectedUsers }) => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -19,10 +19,11 @@ const Users = ({ filters, page }) => {
     getUsers();
   }, [filters, page]);
 
+
   return (
     <div className='users'>
       {users?.map((user, index) => (
-        <Card user={user} key={index} />
+        <Card user={user} key={index} select={select} onClick={onUserSelect} selectedUsers={selectedUsers}/>
       ))}
     </div>
   );

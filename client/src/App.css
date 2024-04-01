@@ -3,3 +3,11 @@
     height: 100vh;
     overflow-y: scroll;
 }
+
+*{
+    ::-webkit-scrollbar {
+        width: 0;
+      }
+    
+      -webkit-tap-highlight-color: transparent;
+}

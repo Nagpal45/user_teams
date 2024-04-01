@@ -12,12 +12,22 @@
 }
 
 .card img{
-    z-index: 100;
+    z-index: 10;
     position: absolute;
     border-radius: 50%;
     background-color: #B5DEFF;
     width: 3.5vw;
     height: 3.5vw;
+}
+
+.canSelect{
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    cursor: pointer;
+    border: white solid 0.2vw;
+}
+
+.selected{
+    border: #36f378 solid 0.2vw;
 }
 
 .top{

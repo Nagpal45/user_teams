@@ -12,9 +12,14 @@ export default function Pagination({ filters, setPage }) {
             const res = await axios.get('/api/users', { params: { ...filters } });
             const data = res.data;
             setTotalPages(data.totalPages);
+
+            if (currentPage > data.totalPages || currentPage === 0) {
+                setCurrentPage(data.totalPages);
+                setPage(data.totalPages);
+            }
         };
         getUsers();
-    }, [filters]);
+    }, [filters, currentPage, setPage]);
 
     const handlePageChange = (newPage) => {
         if (newPage >= 1 && newPage <= totalPages) {

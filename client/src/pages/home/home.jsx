@@ -3,6 +3,9 @@ import Users from '../../components/users/users'
 import FilterBar from '../../components/filterBar/filterBar'
 import Pagination from '../../components/pagination/pagination'
 import './home.css'
+import TopBar from '../../components/topBar/topBar'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 export default function Home() {
   const [filters, setFilters] = useState({
@@ -12,16 +15,55 @@ export default function Home() {
     search: ''
   });
   const [page, setPage] = useState();
+  const [select, setSelect] = useState(false);
+  const [selectedUsers, setSelectedUsers] = useState([]);
+  const [showForm, setShowForm] = useState(false);
+  const [teamName, setTeamName] = useState('');
+
+  const history = useNavigate();
 
   const applyFilters = async (filters) => {
     setFilters(filters);
   };
 
+  const handleUserSelect = (userId) => {
+    const index = selectedUsers.indexOf(userId);
+    if (index !== -1) {
+      setSelectedUsers(selectedUsers.filter((id) => id !== userId));
+    } else {
+      setSelectedUsers([...selectedUsers, userId]);
+    }
+  };
+
+  const handleCreateTeam = async (e) => {
+    e.preventDefault();
+    try {
+      console.log(teamName);
+      console.log(selectedUsers);
+      const response = await axios.post('/api/teams', { name: teamName, memberIds: selectedUsers });
+      setSelectedUsers([]);
+      setShowForm(false);
+      console.log(response);
+      history(`/teams/${response.data._id}`);
+    } catch (error) {
+      console.error('Error creating team:', error);
+    }
+  };
+
   return (
     <div className='home'>
+      <TopBar setSelect={setSelect} selectedUsers={selectedUsers} setSelectedUsers={setSelectedUsers} setShowForm={setShowForm}/>
       <FilterBar applyFilters={applyFilters} />
-      <Users filters={filters} page={page}/>
+      <Users filters={filters} page={page} select={select} onUserSelect ={handleUserSelect} selectedUsers={selectedUsers}/>
       <Pagination filters={filters} setPage={setPage}/>
+      {showForm && (
+        <div className="formWrapper">
+        <form onSubmit={handleCreateTeam} className='teamForm'>
+          <input type="text" id="teamName" placeholder='Enter Team Name' onChange={(e) => setTeamName(e.target.value)}/>
+          <button type='submit'>Create Team</button>
+        </form>
+        </div>
+      )}
     </div>
   );
 }

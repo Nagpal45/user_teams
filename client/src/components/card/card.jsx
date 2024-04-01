@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './card.css';
 import { Email, WcOutlined, Work } from '@mui/icons-material';
 
 
-export default function Card({user}) {
+export default function Card({user, select, onClick, selectedUsers}) {
+    const[selected, setSelected] = useState();
+    useEffect(()=>{
+        setSelected(selectedUsers.includes(user._id));
+    },[selectedUsers, user._id])
+    const handleClick = () => {
+        if (select) {
+          onClick(user._id);
+        }
+      };
+
   return (
-        <div className='card'>
+        <div className={select ? selected ? 'selected canSelect card' : 'canSelect card':'card'} onClick={handleClick}>
         <div className="top">
             <div className="left">
                 <div className='detail'>

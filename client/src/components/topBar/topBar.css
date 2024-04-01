@@ -1,0 +1,28 @@
+.topBar{
+    padding-bottom: 1vw;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.topBar h1{
+    margin-left: 3vw;
+    font-size: 3vw;
+}
+
+.topBar button{
+    cursor: pointer;
+    margin-right: 3vw;
+    width: 11vw;
+    height: 3vw;
+    background: #CAB8FF;
+    border: none;
+    border-radius: 0.4vw;
+    font-size: 1vw;
+    margin-top: 3vw;
+}
+
+.topBar button:hover{
+    opacity: 0.8;
+}

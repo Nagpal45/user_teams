@@ -1,8 +1,72 @@
 .filterBar{
-    padding-top: 3vw;
-    padding-bottom: 3vw;
+    padding-bottom: 2vw;
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+}
+
+.filters{
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    gap: 1vw;
+    margin-right: 3vw;
+}
+
+.filters select{
+    width: 15vw;
+    height: 2.5vw;
+    border: #B5DEFF solid 0.2vw;
+    cursor: pointer;
+    color: gray;
+    border-radius: 0.5vw;
+}
+
+.filters select{
+    outline: none;
+}
+
+
+.filters button{
+    width: 7vw;
+    height: 2.3vw;
+    background: #B5DEFF;
+    border: none;
+    cursor: pointer;
+    border-radius: 0.5vw;
+}
+
+.filters button:hover{
+    opacity: 0.8;
+}   
+
+.search{
+   width: 100%;
+   height: 100%; 
+   border: none;
+   padding-left: 3vw;
+   font-size: 1vw;
+}
+
+.search:focus{
+    outline: none;
+}
+
+.searchIcon{
+    position: absolute;
+    left: 0.5vw;
+    color: gray;
+}
+
+.searchBar{
+    margin-left: 3vw;
+    width: 18vw;
+    height: 2.3vw;
+    border-radius: 0.5vw;
+    overflow: hidden;
+    border: #B5DEFF solid 0.2vw;
+    display: flex;
+    align-items: center;justify-content: center;
+    position: relative;
 }

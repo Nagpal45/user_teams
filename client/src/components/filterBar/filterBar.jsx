@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './filterBar.css'
+import { Search } from '@mui/icons-material'
 
 const FilterBar = ({ applyFilters }) => {
   const initialFilters = {
@@ -43,6 +44,18 @@ const FilterBar = ({ applyFilters }) => {
 
   return (
     <div className='filterBar'>
+      <div className="searchBar">
+      <Search className='searchIcon'/>
+      <input
+        type="text"
+        placeholder="Search"
+        name="search"
+        value={filters.search}
+        onChange={handleChange}
+        className='search'
+      />
+      </div>
+      <div className="filters">
       <select name="domain" value={filters.domain} onChange={handleChange}>
         <option value="">Select Domain</option>
         {domains.map((domain) => (
@@ -60,14 +73,8 @@ const FilterBar = ({ applyFilters }) => {
         <option value="true">True</option>
         <option value="false">False</option>
       </select>
-      <input
-        type="text"
-        placeholder="Search"
-        name="search"
-        value={filters.search}
-        onChange={handleChange}
-      />
       <button onClick={handleClearFilters}>Clear Filters</button>
+      </div>
     </div>
   );
 };
