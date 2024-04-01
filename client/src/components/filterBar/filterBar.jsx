@@ -58,13 +58,13 @@ const FilterBar = ({ applyFilters }) => {
       <div className="filters">
       <select name="domain" value={filters.domain} onChange={handleChange}>
         <option value="">Select Domain</option>
-        {domains.map((domain) => (
+        {domains?.map((domain) => (
           <option key={domain} value={domain}>{domain}</option>
         ))}
       </select>
       <select name="gender" value={filters.gender} onChange={handleChange}>
         <option value="">Select Gender</option>
-        {genders.map((gender) => (
+        {genders?.map((gender) => (
           <option key={gender} value={gender}>{gender}</option>
         ))}
       </select>
