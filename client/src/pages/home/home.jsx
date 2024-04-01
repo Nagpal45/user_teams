@@ -27,21 +27,23 @@ export default function Home() {
     setFilters(filters);
   };
 
-  const handleUserSelect = (userId) => {
-    const index = selectedUsers.indexOf(userId);
+  const handleUserSelect = (user) => {
+    const index = selectedUsers.findIndex((u) => u._id === user._id);
     if (index !== -1) {
-      setSelectedUsers(selectedUsers.filter((id) => id !== userId));
+      setSelectedUsers(selectedUsers.filter((u) => u._id !== user._id));
     } else {
-      setSelectedUsers([...selectedUsers, userId]);
+      setSelectedUsers([...selectedUsers, user]);
     }
   };
+  
 
   const handleCreateTeam = async (e) => {
     e.preventDefault();
     try {
       console.log(teamName);
       console.log(selectedUsers);
-      const response = await axios.post('/api/teams', { name: teamName, memberIds: selectedUsers });
+      const memberIds = selectedUsers.map((user) => user._id);
+      const response = await axios.post('/api/teams', { name: teamName, memberIds });
       setSelectedUsers([]);
       setShowForm(false);
       console.log(response);
@@ -50,13 +52,14 @@ export default function Home() {
       console.error('Error creating team:', error);
     }
   };
+  
 
   return (
     <div className='home'>
-      <TopBar setSelect={setSelect} selectedUsers={selectedUsers} setSelectedUsers={setSelectedUsers} setShowForm={setShowForm}/>
+      <TopBar setSelect={setSelect} setSelectedUsers={setSelectedUsers} setShowForm={setShowForm}/>
       <FilterBar applyFilters={applyFilters} />
       {select && ( <p className='text'>**Click on the card to select</p> )}
-      <Users filters={filters} page={page} select={select} onUserSelect ={handleUserSelect} selectedUsers={selectedUsers}/>
+      <Users filters={filters} page={page} select={select} handleUserSelect ={handleUserSelect} selectedUsers={selectedUsers}/>
       <Pagination filters={filters} setPage={setPage}/>
       {showForm && (
         <div className="formWrapper">

@@ -12,8 +12,13 @@
     top: -2vw;
     border-radius: 0.5vw;
     width: 92%;
-    background-color: lightcoral;
+    background-color: rgb(255, 104, 104);
     font-size: 0.8vw;
-    padding: 1vw;
+    padding: 0.5vw;
     z-index: 10;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1vw;
 }

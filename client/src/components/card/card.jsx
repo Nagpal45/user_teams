@@ -3,26 +3,25 @@ import './card.css';
 import { Email, WcOutlined, Work } from '@mui/icons-material';
 
 
-export default function Card({ user, select, onClick, selectedUsers, setWarning }) {
+export default function Card({ user, select, handleUserSelect, selectedUsers, setWarning }) {
     const [selected, setSelected] = useState();
     useEffect(() => {
-        setSelected(selectedUsers.includes(user._id));
-    }, [selectedUsers, user._id])
+        setSelected(selectedUsers.some((u) => u._id === user._id));
+    }, [selectedUsers, user._id]);
 
     const handleClick = () => {
         if (select) {
-            if (!user.available) {
-                setWarning('Cannot select user because the user is not available.');
-            } else if (
-                selectedUsers.some(
-                    selectedUser => selectedUser.domain === user.domain
-                )
-            ) {
-                setWarning('Cannot select user due to domain conflict.');
-            } else {
-                onClick(user._id);
+            if (selectedUsers.some((u) => u._id === user._id)) {
+                handleUserSelect(user);
                 setWarning('');
-            }
+              } else if (!user.available) {
+                setWarning('Cannot select user because the user is not available.');
+              } else if (selectedUsers.some((u) => u.domain === user.domain)) {
+                setWarning('Cannot select user due to domain conflict.');
+              } else {
+                handleUserSelect(user);
+                setWarning('');
+              }
         }
     };
 

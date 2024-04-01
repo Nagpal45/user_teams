@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import Card from '../card/card';
 import axios from 'axios';
 import './users.css';
+import { Error } from '@mui/icons-material';
 
-const Users = ({ filters, page, select, onUserSelect, selectedUsers }) => {
+const Users = ({ filters, page, select, handleUserSelect, selectedUsers }) => {
   const [users, setUsers] = useState([]);
   const [warning, setWarning] = useState('');
 
@@ -23,9 +24,9 @@ const Users = ({ filters, page, select, onUserSelect, selectedUsers }) => {
 
   return (
     <div className='users'>
-      {warning && <div className="warning">{warning}</div>}
+      {warning && <div className="warning"><Error/>{warning}</div>}
       {users?.map((user, index) => (
-        <Card user={user} key={index} select={select} onClick={onUserSelect} selectedUsers={selectedUsers} setWarning={setWarning}/>
+        <Card user={user} key={index} select={select} handleUserSelect={handleUserSelect} selectedUsers={selectedUsers} setWarning={setWarning}/>
       ))}
     </div>
   );
