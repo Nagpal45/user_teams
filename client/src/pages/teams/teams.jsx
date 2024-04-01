@@ -30,7 +30,7 @@ export default function Teams() {
   return (
     <div className="teams">
       {loading && (<Loading/>)}
-        {teams.map((team) => (
+        {teams?.map((team) => (
             <Team teamId={team._id} key = {team._id}/>
         ))}
     </div>
