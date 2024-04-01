@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import TopBar from '../../components/topBar/topBar';
 import Card from '../../components/card/card';
+import './team.css'
 
 const Team = () => { 
   const [team, setTeam] = useState(null);
@@ -36,14 +37,14 @@ const Team = () => {
   }
 
   return (
-    <>
+    <div className='team'>
     <TopBar teamName={team?.name} deleteTeam={deleteTeam}/>
     <div className='users'>
       {team?.members?.map((member, index) => (
         <Card user={member} key={index}/>
       ))}
      </div>
-    </>
+    </div>
   );
 };
 
