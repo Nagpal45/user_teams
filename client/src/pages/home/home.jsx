@@ -85,6 +85,7 @@ export default function Home() {
       {showForm && (
         <div className="formWrapper">
           <form onSubmit={handleCreateTeam} className='teamForm'>
+            <button className='close' onClick={() => setShowForm(false)}><Close /></button>
             <input type="text" id="teamName" placeholder='Enter Team Name' onChange={(e) => setTeamName(e.target.value)} />
             <button className='submit' type='submit'>Add User</button>
           </form>
