@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './topBar.css';
 
-export default function TopBar({setSelect, setSelectedUsers, setShowForm}) {
+export default function TopBar({teamName, setSelect, setSelectedUsers, setShowForm, deleteTeam}) {
   const[isSelect, setIsSelect] = useState();
   const handleSelect = () => {
     setSelect(true);
@@ -17,11 +17,20 @@ export default function TopBar({setSelect, setSelectedUsers, setShowForm}) {
   }
   return (
     <div className='topBar'>
-        <h1>Users</h1>
-        {isSelect ? (<div>
-          <button onClick={handleUnSelect}>Cancel</button>
-          <button onClick={handleForm}>Done</button>
-        </div>) : (<button onClick={handleSelect}>Create Team</button>)}
+      <h1>{teamName ? teamName : "Users"}</h1>
+      {deleteTeam ? (
+        <button onClick={deleteTeam}>Delete Team</button>
+      ) : (
+        isSelect ? (
+          <div>
+            <button onClick={handleUnSelect}>Cancel</button>
+            <button onClick={handleForm}>Done</button>
+          </div>
+        ) : (
+          <button onClick={handleSelect}>Create Team</button>
+        )
+      )}
     </div>
-  )
+  );
+  
 }

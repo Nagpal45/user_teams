@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import TopBar from '../../components/topBar/topBar';
+import Card from '../../components/card/card';
 
 const Team = () => { 
   const [team, setTeam] = useState(null);
   const {id} = useParams();
+  const history = useNavigate();
+
   useEffect(() => {
     const fetchTeamDetails = async () => {
       try {
         const response = await axios.get(`/api/teams/${id}`); 
         setTeam(response.data);
+        console.log(response.data);
       } catch (error) {
         console.error('Error fetching team details:', error);
       }
@@ -18,22 +23,27 @@ const Team = () => {
     fetchTeamDetails();
   }, [id]);
 
+
+  const deleteTeam = async () => {
+    try {
+      const response = await axios.delete(`/api/teams/${id}`);
+      console.log(response);
+
+    } catch (error) {
+      console.error('Error deleting team:', error);
+    }
+    history('/');
+  }
+
   return (
-    <div>
-      <h1>Team Details</h1>
-      {team ? (
-        <div>
-          <h2>{team.name}</h2>
-          <ul>
-            {team.members.map((member) => (
-              <li key={member._id}>{member.first_name}</li>
-            ))}
-          </ul>
-        </div>
-      ) : (
-        <p>Loading team details...</p>
-      )}
-    </div>
+    <>
+    <TopBar teamName={team?.name} deleteTeam={deleteTeam}/>
+    <div className='users'>
+      {team?.members?.map((member, index) => (
+        <Card user={member} key={index}/>
+      ))}
+     </div>
+    </>
   );
 };
 
