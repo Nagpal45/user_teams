@@ -85,7 +85,7 @@
     justify-content: center;
     flex-direction: column;
     width: 40vw;
-    height: 40vw;
+    height: 45vw;
     background-color: white;
     border-radius: 1vw;
     gap: 1vw;
@@ -94,7 +94,7 @@
 
 .userForm input, .userForm select{
     width: 75%;
-    height: 10%;
+    height: 8%;
     border: #B5DEFF solid 0.2vw;
     border-radius: 0.5vw;
     background-color: #d2e7f9;
@@ -102,16 +102,28 @@
     padding-left: 1vw;
 }
 
+.userForm select{
+    cursor: pointer;
+    width: 78%;
+    height: 9%;
+}
 
-.userForm input:focus{
+.userForm input:focus ,.userForm select:focus{
     outline: none;
 }
 
 .submitUser{
     width: 50%;
-    height: 10%;
+    height: 8%;
     background: #C1FFD7;
     border-radius: 0.5vw;
     border: none;
     cursor: pointer;
+    margin-top: 2vw;
+    font-size: 0.9vw;
+    font-weight: 600;
+}
+
+.submitUser:hover{
+    opacity: 0.8;
 }
