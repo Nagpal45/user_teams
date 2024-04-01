@@ -5,7 +5,7 @@ import TopBar from '../../components/topBar/topBar';
 import Card from '../../components/card/card';
 import './team.css'
 
-const Team = () => { 
+const Team = ({teamId}) => { 
   const [team, setTeam] = useState(null);
   const {id} = useParams();
   const history = useNavigate();
@@ -13,7 +13,7 @@ const Team = () => {
   useEffect(() => {
     const fetchTeamDetails = async () => {
       try {
-        const response = await axios.get(`/api/teams/${id}`); 
+        const response = await axios.get(`/api/teams/${teamId || id}`); 
         setTeam(response.data);
         console.log(response.data);
       } catch (error) {
@@ -22,7 +22,7 @@ const Team = () => {
     };
 
     fetchTeamDetails();
-  }, [id]);
+  }, [id, teamId]);
 
 
   const deleteTeam = async () => {
@@ -38,7 +38,8 @@ const Team = () => {
 
   return (
     <div className='team'>
-    <TopBar teamName={team?.name} deleteTeam={deleteTeam}/>
+    {teamId ? (<TopBar teamName={team?.name} teamId={teamId}/>) : (<TopBar teamName={team?.name} deleteTeam={deleteTeam}/>)}
+    
     <div className='users'>
       {team?.members?.map((member, index) => (
         <Card user={member} key={index}/>

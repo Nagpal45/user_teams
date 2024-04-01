@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import './topBar.css';
+import { Link } from 'react-router-dom';
 
-export default function TopBar({teamName, setSelect, setSelectedUsers, setShowForm, deleteTeam}) {
-  const[isSelect, setIsSelect] = useState();
+export default function TopBar({ teamName, setSelect, setSelectedUsers, setShowForm, deleteTeam, teamId }) {
+  const [isSelect, setIsSelect] = useState();
+
   const handleSelect = () => {
     setSelect(true);
     setIsSelect(true);
@@ -18,7 +20,10 @@ export default function TopBar({teamName, setSelect, setSelectedUsers, setShowFo
   return (
     <div className='topBar'>
       <h1>{teamName ? teamName : "Users"}</h1>
-      {deleteTeam ? (
+      {teamId ? (<Link to={`/teams/${teamId}`}>
+        <button>View Team</button>
+      </Link>
+      ) : deleteTeam ? (
         <button onClick={deleteTeam}>Delete Team</button>
       ) : (
         isSelect ? (
@@ -32,5 +37,5 @@ export default function TopBar({teamName, setSelect, setSelectedUsers, setShowFo
       )}
     </div>
   );
-  
+
 }
