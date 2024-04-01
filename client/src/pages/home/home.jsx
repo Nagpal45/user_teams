@@ -86,6 +86,7 @@ export default function Home() {
         <div className="formWrapper">
           <form onSubmit={handleCreateTeam} className='teamForm'>
             <input type="text" id="teamName" placeholder='Enter Team Name' onChange={(e) => setTeamName(e.target.value)} />
+            <button className='submit' type='submit'>Add User</button>
           </form>
         </div>
       )}
