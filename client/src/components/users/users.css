@@ -4,4 +4,16 @@
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
+    position: relative;
+}
+
+.warning{
+    position: absolute;
+    top: -2vw;
+    border-radius: 0.5vw;
+    width: 92%;
+    background-color: lightcoral;
+    font-size: 0.8vw;
+    padding: 1vw;
+    z-index: 10;
 }

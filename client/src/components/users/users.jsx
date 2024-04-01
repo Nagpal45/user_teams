@@ -5,6 +5,7 @@ import './users.css';
 
 const Users = ({ filters, page, select, onUserSelect, selectedUsers }) => {
   const [users, setUsers] = useState([]);
+  const [warning, setWarning] = useState('');
 
   useEffect(() => {
     const getUsers = async () => {
@@ -22,8 +23,9 @@ const Users = ({ filters, page, select, onUserSelect, selectedUsers }) => {
 
   return (
     <div className='users'>
+      {warning && <div className="warning">{warning}</div>}
       {users?.map((user, index) => (
-        <Card user={user} key={index} select={select} onClick={onUserSelect} selectedUsers={selectedUsers}/>
+        <Card user={user} key={index} select={select} onClick={onUserSelect} selectedUsers={selectedUsers} setWarning={setWarning}/>
       ))}
     </div>
   );

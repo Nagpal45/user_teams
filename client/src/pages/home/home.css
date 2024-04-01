@@ -25,15 +25,16 @@
     justify-content: center;
     flex-direction: column;
     width: 40vw;
-    height: 15vw;
+    height: 20vw;
     background-color: white;
     border-radius: 1vw;
     gap: 2vw;
+    position: relative;
 }
 
 .teamForm input{
     width: 80%;
-    height: 30%;
+    height: 25%;
     border: #B5DEFF solid 0.2vw;
     border-radius: 0.5vw;
     background-color: #d2e7f9;
@@ -45,7 +46,7 @@
     outline: none;
 }
 
-.teamForm button{
+.submit{
     width: 50%;
     height: 20%;
     background: #C1FFD7;
@@ -54,6 +55,24 @@
     cursor: pointer;
 }
 
-.teamForm button:hover{
+.submit:hover{
     opacity: 0.8;
+}
+
+.text{
+    align-self: flex-start;
+    margin: 0;
+    margin-left: 3vw;
+    font-size: 0.8vw;
+    color: gray;
+    font-weight: 600;
+}
+
+.close{
+    background: none;
+    border: none;
+    position: absolute;
+    top:1vw;
+    right:1vw;
+    cursor: pointer;
 }

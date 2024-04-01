@@ -6,6 +6,7 @@ import './home.css'
 import TopBar from '../../components/topBar/topBar'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { Close } from '@mui/icons-material'
 
 export default function Home() {
   const [filters, setFilters] = useState({
@@ -54,13 +55,15 @@ export default function Home() {
     <div className='home'>
       <TopBar setSelect={setSelect} selectedUsers={selectedUsers} setSelectedUsers={setSelectedUsers} setShowForm={setShowForm}/>
       <FilterBar applyFilters={applyFilters} />
+      {select && ( <p className='text'>**Click on the card to select</p> )}
       <Users filters={filters} page={page} select={select} onUserSelect ={handleUserSelect} selectedUsers={selectedUsers}/>
       <Pagination filters={filters} setPage={setPage}/>
       {showForm && (
         <div className="formWrapper">
         <form onSubmit={handleCreateTeam} className='teamForm'>
+          <button className='close' onClick={()=>setShowForm(false)}><Close/></button>
           <input type="text" id="teamName" placeholder='Enter Team Name' onChange={(e) => setTeamName(e.target.value)}/>
-          <button type='submit'>Create Team</button>
+          <button className='submit' type='submit'>Create Team</button>
         </form>
         </div>
       )}
